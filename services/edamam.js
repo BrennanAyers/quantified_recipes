@@ -24,6 +24,31 @@ class Edamam {
      })
    })
  }
+
+  calorieTotal(food, calories) {
+   var maxCalories = calories + 100
+   var minCalories = calories - 100
+   return fetch(`https://api.edamam.com/search?q=${food}&app_id=${process.env.EDAMAM_API_ID}&app_key=${process.env.EDAMAM_API_KEY}&to=3&calories=${minCalories}-${maxCalories}`)
+   .then(response => {
+     return response.json()
+     .then(json => {
+       let recipes = []
+       json.hits.forEach(function(recipe) {
+         recipes.push({
+           name: recipe.recipe.label,
+           foodType: food,
+           recipeUrl: recipe.recipe.url,
+           recipeImage: recipe.recipe.image,
+           ingredientList: recipe.recipe.ingredientLines.join(','),
+           ingredientCount: recipe.recipe.ingredientLines.length,
+           calorieCount: recipe.recipe.calories,
+           servingCount: recipe.recipe.yield
+         })
+       })
+       return recipes
+     })
+   })
+ }
 }
 
 module.exports = {
