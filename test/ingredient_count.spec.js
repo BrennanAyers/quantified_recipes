@@ -57,37 +57,71 @@ describe('Ingredient Count api', () => {
       })
     })
 
-    // test('it can return recipes if none are on the database, and adds these new recipes', () => {
-    //   return Recipe.findAll({
-    //     where: {
-    //       foodType: 'turkey'
-    //     }
-    //   })
-    //   .then(recipes => {
-    //     expect(recipes.length).toBe(0)
-    //
-    //     return request(app).get('/api/v1/recipes/food_search?q=turkey')
-    //     .then(response => {
-    //       expect(response.statusCode).toBe(200)
-    //       expect(response.body.length).toBe(3)
-    //       expect(Object.keys(response.body[0])).toContain('id')
-    //       expect(Object.keys(response.body[0])).toContain('name')
-    //       expect(Object.keys(response.body[0])).toContain('recipeUrl')
-    //       expect(Object.keys(response.body[0])).toContain('recipeImage')
-    //       expect(Object.keys(response.body[0])).toContain('ingredientList')
-    //       expect(Object.keys(response.body[0])).toContain('calorieCount')
-    //       expect(Object.keys(response.body[0])).toContain('servingCount')
-    //
-    //       return Recipe.findAll({
-    //         where: {
-    //           foodType: 'turkey'
-    //         }
-    //       })
-    //       .then(recipes => {
-    //         expect(recipes.length).toBe(3)
-    //       })
-    //     })
-    //   })
-    // })
+    test('it can return recipes if none are on the database, and adds these new recipes', () => {
+      return Recipe.bulkCreate([{
+        name: 'turkey dish',
+        foodType: 'turkey',
+        recipeUrl: 'www.turkey_recipe.com',
+        recipeImage: 'image.com',
+        ingredientList: '1 Turkey, 2 Lemons',
+        ingredientCount: 2,
+        calorieCount: 2000,
+        servingCount: 4
+      },
+      {
+        name: 'turkey dish',
+        foodType: 'turkey',
+        recipeUrl: 'www.turkey_recipe.com',
+        recipeImage: 'image.com',
+        ingredientList: '1 Turkey, 2 Lemons',
+        ingredientCount: 2,
+        calorieCount: 2000,
+        servingCount: 4
+      },
+      {
+        name: 'turkey dish',
+        foodType: 'turkey',
+        recipeUrl: 'www.turkey_recipe.com',
+        recipeImage: 'image.com',
+        ingredientList: '1 Turkey, 2 Lemons',
+        ingredientCount: 2,
+        calorieCount: 2000,
+        servingCount: 4
+      }])
+      .then(twoCountRecipes => {
+        return Recipe.findAll({
+          where: {
+            foodType: 'turkey',
+            ingredientCount: 3
+          }
+        })
+        .then(recipes => {
+          expect(recipes.length).toBe(0)
+
+          return request(app).get('/api/v1/recipes/food_search?q=turkey')
+          .then(response => {
+            expect(response.statusCode).toBe(200)
+            expect(response.body.length).toBe(3)
+            expect(Object.keys(response.body[0])).toContain('id')
+            expect(Object.keys(response.body[0])).toContain('name')
+            expect(Object.keys(response.body[0])).toContain('recipeUrl')
+            expect(Object.keys(response.body[0])).toContain('recipeImage')
+            expect(Object.keys(response.body[0])).toContain('ingredientList')
+            expect(Object.keys(response.body[0])).toContain('calorieCount')
+            expect(Object.keys(response.body[0])).toContain('servingCount')
+
+            return Recipe.findAll({
+              where: {
+                foodType: 'turkey',
+                ingredientCount: 3
+              }
+            })
+            .then(recipes => {
+              expect(recipes.length).toBe(3)
+            })
+          })
+        })
+      })
+    })
   })
 })
