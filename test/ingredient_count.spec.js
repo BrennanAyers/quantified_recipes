@@ -98,7 +98,7 @@ describe('Ingredient Count api', () => {
         .then(recipes => {
           expect(recipes.length).toBe(0)
 
-          return request(app).get('/api/v1/recipes/food_search?q=turkey')
+          return request(app).get('/api/v1/recipes/ingredient_search?q=turkey&num_of_ingredients=3')
           .then(response => {
             expect(response.statusCode).toBe(200)
             expect(response.body.length).toBe(3)
