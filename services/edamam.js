@@ -20,7 +20,7 @@ class Edamam {
            servingCount: recipe.recipe.yield
          })
        })
-       return Promise.resolve(recipes)
+       return recipes
      })
    })
  }

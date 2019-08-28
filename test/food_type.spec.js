@@ -64,7 +64,7 @@ describe('Food type api', () => {
       })
       .then(recipes => {
         expect(recipes.length).toBe(0)
-        
+
         return request(app).get('/api/v1/recipes/food_search?q=turkey')
         .then(response => {
           expect(response.statusCode).toBe(200)
