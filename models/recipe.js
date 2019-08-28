@@ -1,6 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Recipe = sequelize.define('Recipe', {
+    name: DataTypes.STRING,
     foodType: DataTypes.STRING,
     recipeUrl: DataTypes.STRING,
     recipeImage: DataTypes.STRING,
