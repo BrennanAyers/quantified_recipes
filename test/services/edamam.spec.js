@@ -13,12 +13,13 @@ describe('Edamam API Service Tests', () => {
   test('It can get recipes by food type', () => {
     return edamamService.foodType('chicken')
     .then(recipes => {
-      console.log(recipes)
       expect(recipes.length).toBe(3)
       expect(Object.keys(recipes[0])).toContain('name')
+      expect(recipes[0].foodType).toBe('chicken')
       expect(Object.keys(recipes[0])).toContain('recipeUrl')
       expect(Object.keys(recipes[0])).toContain('recipeImage')
       expect(Object.keys(recipes[0])).toContain('ingredientList')
+      expect(Object.keys(recipes[0])).toContain('ingredientCount')
       expect(Object.keys(recipes[0])).toContain('calorieCount')
       expect(Object.keys(recipes[0])).toContain('servingCount')
     })

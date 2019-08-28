@@ -11,9 +11,11 @@ class Edamam {
        json.hits.forEach(function(recipe) {
          recipes.push({
            name: recipe.recipe.label,
+           foodType: query,
            recipeUrl: recipe.recipe.url,
            recipeImage: recipe.recipe.image,
            ingredientList: recipe.recipe.ingredientLines.join(','),
+           ingredientCount: recipe.recipe.ingredientLines.length,
            calorieCount: recipe.recipe.calories,
            servingCount: recipe.recipe.yield
          })
