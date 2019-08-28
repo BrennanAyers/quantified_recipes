@@ -26,7 +26,9 @@ class Edamam {
  }
 
   calorieTotal(food, calories) {
-   return fetch(`https://api.edamam.com/search?q=${food}&app_id=${process.env.EDAMAM_API_ID}&app_key=${process.env.EDAMAM_API_KEY}&to=3&calories=${calories}`)
+   var maxCalories = calories + 100
+   var minCalories = calories - 100
+   return fetch(`https://api.edamam.com/search?q=${food}&app_id=${process.env.EDAMAM_API_ID}&app_key=${process.env.EDAMAM_API_KEY}&to=3&calories=${minCalories}-${maxCalories}`)
    .then(response => {
      return response.json()
      .then(json => {

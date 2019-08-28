@@ -47,8 +47,19 @@ router.get('/calorie_search', function(req, res, next) {
     limit: 3
   })
   .then(recipes => {
-    res.setHeader('Content-Type', 'application/json');
-    res.status(200).send(JSON.stringify(recipes));
+    if (recipes.length < 3) {
+      edamamService.calorieTotal(req.query.q, req.query.calories)
+      .then(data => {
+        Recipe.bulkCreate(data)
+        .then(recipeResources => {
+          res.setHeader('Content-Type', 'application/json');
+          res.status(200).send(JSON.stringify(recipeResources));
+        })
+      })
+    } else {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(200).send(JSON.stringify(recipes));
+    }
   })
   .catch(error => {
     res.setHeader('Content-Type', 'application/json');
