@@ -61,19 +61,19 @@ router.get('/ingredient_search', function(req, res, next) {
     limit: 3
   })
   .then(recipes => {
-    // if (recipes.length < 3) {
-    //   edamamService.foodType(req.query.q)
-    //   .then(data => {
-    //     Recipe.bulkCreate(data)
-    //     .then(recipeResources => {
-    //       res.setHeader('Content-Type', 'application/json');
-    //       res.status(200).send(JSON.stringify(recipeResources));
-    //     })
-    //   })
-    // } else {
+    if (recipes.length < 3) {
+      edamamService.ingredientCount(req.query.q, req.query.num_of_ingredients)
+      .then(data => {
+        Recipe.bulkCreate(data)
+        .then(recipeResources => {
+          res.setHeader('Content-Type', 'application/json');
+          res.status(200).send(JSON.stringify(recipeResources));
+        })
+      })
+    } else {
       res.setHeader('Content-Type', 'application/json');
       res.status(200).send(JSON.stringify(recipes));
-    // }
+    }
   })
   .catch(error => {
     res.setHeader('Content-Type', 'application/json');
