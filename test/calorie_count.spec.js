@@ -42,7 +42,7 @@ describe('Calorie count api', () => {
         servingCount: 4
       }])
       .then(recipes => {
-        return request(app).get('/api/v1/recipes/calorie_search?calories=2000')
+        return request(app).get('/api/v1/recipes/calorie_search?q=chicken&calories=2000')
           .then(response => {
             expect(response.statusCode).toBe(200)
             expect(response.body.length).toBe(3)
