@@ -25,8 +25,28 @@ describe('Edamam API Service Tests', () => {
     })
   })
 
+  test('It can get recipes by food type and ingredient count', () => {
+    return edamamService.ingredientCount('turkey', 3)
+        .then(recipes => {
+      expect(recipes.length).toBe(3)
+      expect(Object.keys(recipes[0])).toContain('name')
+      expect(recipes[0].foodType).toBe('turkey')
+      expect(Object.keys(recipes[0])).toContain('recipeUrl')
+      expect(Object.keys(recipes[0])).toContain('recipeImage')
+      expect(Object.keys(recipes[0])).toContain('ingredientList')
+      expect(Object.keys(recipes[0])).toContain('ingredientCount')
+      expect(Object.keys(recipes[0])).toContain('calorieCount')
+      expect(Object.keys(recipes[0])).toContain('servingCount')
+
+      expect(recipes[0].ingredientCount).toBe(3)
+      expect(recipes[1].ingredientCount).toBe(3)
+      expect(recipes[2].ingredientCount).toBe(3)
+    })
+  })
+
   test('It can get recipes by food type and calories', () => {
     return edamamService.calorieTotal('turkey', 2000)
+
     .then(recipes => {
       expect(recipes.length).toBe(3)
       expect(Object.keys(recipes[0])).toContain('name')
@@ -37,6 +57,10 @@ describe('Edamam API Service Tests', () => {
       expect(Object.keys(recipes[0])).toContain('ingredientCount')
       expect(Object.keys(recipes[0])).toContain('calorieCount')
       expect(Object.keys(recipes[0])).toContain('servingCount')
+
+      expect(recipes[0].ingredientCount).toBe(3)
+      expect(recipes[1].ingredientCount).toBe(3)
+      expect(recipes[2].ingredientCount).toBe(3)
     })
   })
 })
