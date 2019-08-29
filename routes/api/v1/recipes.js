@@ -113,7 +113,8 @@ router.get('/average_calories', function(req, res, next) {
     res.setHeader('Content-Type', 'application/json');
     res.status(500).send({error});
   });
-  
+});
+
 router.get('/ingredient_sort', function(req, res, next) {
   let direction = req.query.amount == 'asc' ? 'ASC' : 'DESC'
   Recipe.findAll({
