@@ -2,11 +2,9 @@ var express = require('express');
 var router = express.Router();
 var Sequelize = require('../../../models').Sequelize
 var Op = Sequelize.Op;
-const config = require('../../../config/config.js')['development'];
 var Recipe = require('../../../models').Recipe
 var Edamam = require('../../../services/edamam').Edamam
 var edamamService = new Edamam
-var sequelize = new Sequelize(config.database, config.username, config.password, config);
 
 router.get('/food_search', function(req, res, next) {
   Recipe.findAll({
