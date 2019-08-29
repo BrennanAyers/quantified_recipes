@@ -99,7 +99,8 @@ router.get('/ingredient_search', function(req, res, next) {
 router.get('/ingredient_sort', function(req, res, next) {
   let direction = req.query.amount == 'asc' ? 'ASC' : 'DESC'
   Recipe.findAll({
-    order: [['ingredientCount', direction]]
+    order: [['ingredientCount', direction]],
+    limit: 5
   })
   .then(recipes => {
     res.setHeader('Content-Type', 'application/json');
