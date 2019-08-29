@@ -96,4 +96,18 @@ router.get('/ingredient_search', function(req, res, next) {
   });
 })
 
+router.get('/ingredient_sort', function(req, res, next) {
+  Recipe.findAll({
+    order: [['ingredientCount', 'DESC']]
+  })
+  .then(recipes => {
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).send(JSON.stringify(recipes));
+  })
+  .catch(error => {
+    res.setHeader('Content-Type', 'application/json');
+    res.status(500).send({error});
+  })
+})
+
 module.exports = router;
