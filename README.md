@@ -5,6 +5,9 @@ Quantified Recipes is a Node.js application, using the Express framework, that k
 The quantified self refers both to the cultural phenomenon of self-tracking with technology and to a community of users and makers of self-tracking tools who share an interest in “self-knowledge through numbers.”
 ```
 
+## Production Link
+We host [Quantified Recipes](https://quantified-recipes.herokuapp.com/) on Heroku.
+
 ## Installation
 
 Quantified Recipes uses the [Node Package Manager](http://npmjs.com) to manage dependencies. The instructions to run the application locally are below.
@@ -52,8 +55,32 @@ will return 3 Recipe resources in the database with the `foodType` matching the 
 - `GET /api/v1/recipes/average_calories?q=foodType` will return an Object containing the average value of all `calorieCounts` of all Recipes of the given `foodType` in the database. This endpoint will not reach out to Edamam in the case of no records, keeping all logic in the application.
 - `GET /api/v1/recipes/ingredient_sort?amount=ASC_or_DESC` will return an Array of Recipes by the number of ingredients, ordered by the `amount` parameter given in the request, limited to 5 Recipes. This endpoint will not reach out to Edamam in the case of limited records, keeping all logic in the application.
 
+## Testing
+Quantified Recipes uses the Jest testing framework. For ease of use, an NPM script is included:
+`npm test`
+The test suite will create, migrate, and clean a test database on every run, and does not require any user intervention.
+Due to the nature of the Edamam API rate limits, one test will always fail. This is due to the fact that you are only allowed 5 API calls per minute.
+Current code coverage is at 90.48%.
+
+## Known Issues
+- Jest does not exist gracefully, requiring the `--forceExit` flag to end running the test suites
+- Edamam limits API consumption to 5 calls per 60 seconds, fixtures would be required in tests
+- Recipe resources can be duplicated, as their attributes are not currently unique
+
+## Tech Stack
+- Javascript
+- Express
+- Sequelize
+- Postgres
+- Jest
+- DotENV
+- Node-Fetch
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
+
+## Core Contributors
+[Brennan Ayers](https://github.com/BrennanAyers)
+[Trevor Nodland](https://github.com/tnodland)
