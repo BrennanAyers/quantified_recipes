@@ -96,4 +96,20 @@ router.get('/ingredient_search', function(req, res, next) {
   });
 })
 
+router.get('/ingredient_sort', function(req, res, next) {
+  let direction = req.query.amount == 'asc' ? 'ASC' : 'DESC'
+  Recipe.findAll({
+    order: [['ingredientCount', direction]],
+    limit: 5
+  })
+  .then(recipes => {
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).send(JSON.stringify(recipes));
+  })
+  .catch(error => {
+    res.setHeader('Content-Type', 'application/json');
+    res.status(500).send({error});
+  })
+})
+
 module.exports = router;
